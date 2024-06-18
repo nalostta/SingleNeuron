@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.0)
+
+project(SingleNeuron)
+
+set(CMAKE_CXX_STANDARD 11)
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${SOURCE_DIR}/../include)
+include_directories(${SOURCE_DIR}/../extrlibs/gnuplot-cpp/include)
+
+add_executable(SingleNeuron ${SOURCE_DIR}/main.cpp ${SOURCE_DIR}/SingleNeuron.cpp)
+add_executable(test ${SOURCE_DIR}/tests.cpp)
+add_executable(model_selection ${SOURCE_DIR}/model_selection.cpp)
+
+message(STATUS "Source directory: ${SOURCE_DIR}")
