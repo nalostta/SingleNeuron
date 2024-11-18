@@ -3,7 +3,11 @@ Started as a neural network using a single neuron but has now extended to explor
 - Currently focusing on linear regression.
 
 # Curve Fitting Outputs:
-![Demo of the application: Sine Curve Fitting](https://github.com/nalostta/SingleNeuron/blob/model_selection/README_assets/order_4_sine_regression.gif)
+## Fitting a curve of order 1 to a line.
+![Demo of the application: Sine Curve Fitting](README_assets/order_4_sine_regression.gif)
+
+## Fitting a curve of order 4 to a sine wave.
+![Demo of the application: Sine Curve Fitting](README_assets/order_4_sine_regression.gif)
 
 
 
