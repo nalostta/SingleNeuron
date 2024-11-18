@@ -1,5 +1,5 @@
-#ifndef __INCLUDED_DATA_H__
-#define __INCLUDED_DATA_H__
+#ifndef __INCLUDED_CURVE_H__
+#define __INCLUDED_CURVE_H__
 
 #include <cstdlib>
 #include <iostream>
@@ -9,15 +9,15 @@ const double _PI = 3.14159f;
 const double _2PI = 2.0f*_PI;
 const int noise_resolution = 100;
 
-class dataGen
+class Curve 
 {
-    
 public:
     double* _data;
     enum inputDataType{ enSINE, enCustom, enEmpty };
     unsigned int _len;
+    friend class Regressor;
 
-    dataGen(unsigned int len, enum inputDataType idt, const double amplitude=1, const double* data=nullptr)
+    Curve(unsigned int len, enum inputDataType idt, const double amplitude=1, const double* data=nullptr)
     {
         // Generate data
         if(len>0)
@@ -48,7 +48,7 @@ public:
         }
     }
 
-    ~dataGen()
+    ~Curve()
     {
         delete[] _data;
     }
@@ -68,13 +68,6 @@ public:
         return _data[index];
     }
 
-    /*double operator-(double* ref)
-    {
-        double sum = 0.0f;
-        for(int i=0; i<_len; i++) sum += (_data[i]-ref[i])*(_data[i]-ref[i]);
-        return sum/2;
-    }*/
-
     void replace(double data, unsigned int index)
     {
         if(index<_len) _data[index] = data;
@@ -87,12 +80,13 @@ public:
         std::cout << std::endl;
     }
 
-    double sqErr(dataGen& ref)
+    double sqErr(Curve& ref)
     {
         double sum = 0.0f;
         for(int i=0; i<_len; i++) sum += (_data[i]-ref[i])*(_data[i]-ref[i]);
         return sum;
     }
+
 };
 
-#endif // __INCLUDED_DATA_H__
+#endif // __INCLUDED_CURVE_H__

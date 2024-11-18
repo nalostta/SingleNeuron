@@ -2,6 +2,8 @@
 #define __INCLUDED_MODEL_H__
 
 #include <cmath>
+#include <iostream>
+#include "Curve.h"
 
 class model
 {
@@ -39,7 +41,7 @@ public:
 
     unsigned int getOrder() { return order;}
 
-    double operator[](int x)
+    double operator[](double x)
     {
         double sum=0.0f;
         for(int i=0; i<=order; i++)
@@ -90,7 +92,7 @@ public:
         std::cout<<std::endl;
     }
 
-    double Erms(dataGen& d)
+    double Erms(Curve& d)
     {
         double error = 0.0f;
         for(int i=0; i<d.len(); i++)
@@ -112,6 +114,14 @@ public:
         for(int i=0; i<=order; i++)
         {
             _coeff[i] = src._coeff[i];
+        }
+    }
+
+    void populateCurve(Curve& c, double scale = 1.0f)
+    {
+        for(int i=0; i<c.len(); i++)
+        {
+            c.replace((*this)[i*scale], i);
         }
     }
 };

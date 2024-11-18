@@ -10,5 +10,7 @@ include_directories(${SOURCE_DIR}/../extrlibs/gnuplot-cpp/include)
 add_executable(SingleNeuron ${SOURCE_DIR}/main.cpp ${SOURCE_DIR}/SingleNeuron.cpp)
 add_executable(test ${SOURCE_DIR}/tests.cpp)
 add_executable(model_selection ${SOURCE_DIR}/model_selection.cpp)
+add_executable(curvebag_test ${SOURCE_DIR}/curvebag_test.cpp)
+set_target_properties(curvebag_test PROPERTIES COMPILE_FLAGS "-g")
 
 message(STATUS "Source directory: ${SOURCE_DIR}")

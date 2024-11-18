@@ -1,8 +1,11 @@
 #ifndef __INCLUDED_REGRESSION_H__
 #define __INCLUDED_REGRESSION_H__
 
-#include <data.h>
-#include <model.h>
+#include "Curve.h"
+#include "model.h"
+#include <cstdlib>
+#include <ctime>
+
 
 const double bias_learning_rate = 1;
 
@@ -25,12 +28,27 @@ public:
         delete m;
     }
 
+    void randomizeCoeffs()
+    {
+        time_t t;
+        t = time(NULL);
+        srand(t);
+        for(int i=0; i<=m->getOrder(); i++)
+        {
+            double val = (rand()%10)/10.0f;
+            val -= 0.5;
+            val /= pow(10,i);
+            val*=2;
+            m->updateCoeff(i, val);
+        }
+    }
+
     double getCoeff(unsigned int index)
     {
         return m->getCoeff(index);
     }
 
-    double sqErr(dataGen& d)
+    double sqErr(Curve& d)
     {
         double error = 0.0f;
         for(int i=0; i<d.len(); i++)
@@ -45,7 +63,7 @@ public:
         m->updateCoeff(coeff_order, error);
     }
 
-    double train_on(dataGen& d)
+    double train_on(Curve& d)
     {
         model m_left  = model(m->getOrder());
         model m_right = model(m->getOrder());
@@ -100,6 +118,26 @@ public:
     double predict(double x)
     {
         return (*m)[x];
+    }
+
+    void populateCurve(Curve& d, double scale=1.0f)
+    {
+        m->populateCurve(d, scale);
+    }
+
+    unsigned int get_model_order()
+    {
+        return m->getOrder();
+    }
+
+    void setLearningRate(double new_lr)
+    {
+        learning_rate = new_lr;
+    }
+
+    double getLearningRate()
+    {
+        return learning_rate;
     }
 
     /* ---- Upcoming code...
