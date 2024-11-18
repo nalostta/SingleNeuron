@@ -4,7 +4,7 @@ Started as a neural network using a single neuron but has now extended to explor
 
 # Curve Fitting Outputs:
 ## Fitting a curve of order 1 to a line.
-![Demo of the application: Sine Curve Fitting](README_assets/order_4_sine_regression.gif)
+![Demo of the application: line  Fitting](README_assets/order_1_incline_regression.gif)
 
 ## Fitting a curve of order 4 to a sine wave.
 ![Demo of the application: Sine Curve Fitting](README_assets/order_4_sine_regression.gif)
