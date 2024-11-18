@@ -8,34 +8,46 @@ using namespace std;
 
 int main()
 {
-    CurveBag cb(400);
-    Regressor ash(0.001, 50, 10);
+    int number_of_frames = 300;
+    
+    Regressor ash(0.1, 80, 4);
     //ash.randomizeCoeffs();
-    double scale = 0.2;
-    double data_len = 200;
-    cb.new_curve(data_len*scale, Curve::enSINE, 3, 0.5f);
+    unsigned int data_len = 40;
+    
+    double st_line[data_len];
+    for(int i=0; i<data_len; i++)
+    {
+        st_line[i] = i;
+    }
+
+
+    CurveBag cb(number_of_frames, -1,1);
+    cb.new_curve(data_len, Curve::enSINE, 1, 0.0);
     cb.new_curve(data_len, Curve::enEmpty);
-    cb.gen_frame();
+    //cb.gen_frame();
     //cb.gen_frame();
     //cb.gen_frame();
     //cb.view_frame(1);
     //cout<<"Matrix.size() = "<< cb.matrix_size() << endl;
 
-    unsigned int total_iterations = 400;
+    unsigned int total_iterations = number_of_frames;
     double prev_err = 1000000;
     for(int j=0; j<total_iterations; j++)
     {
         double min_err = ash.train_on(*cb.get_curve_at(0));
-        ash.populateCurve(*cb.get_curve_at(1), scale);
+        ash.populateCurve(*cb.get_curve_at(1));
         cb.gen_frame();
-        std::cout<<"Iteration "<<j<<": Error = "<<min_err<<std::endl;
-        if(min_err < (prev_err-0.1)) 
+        if(j%2==0)
+        {
+            std::cout<<"Iteration "<<j<<": Error = "<<min_err<<std::endl;
+        }
+        if(min_err < (prev_err-0.0001)) 
         {
             prev_err = min_err;
         }
         else //if(min_err >= (prev_err-0.01)) 
         {
-            ash.setLearningRate(ash.getLearningRate()*0.95);
+            ash.setLearningRate(ash.getLearningRate()*0.8);
         }
         //
     }

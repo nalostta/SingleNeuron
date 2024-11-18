@@ -2,6 +2,11 @@
 Started as a neural network using a single neuron but has now extended to explore classical statistical based ML.
 - Currently focusing on linear regression.
 
+# Curve Fitting Outputs:
+[Demo of the application: Sine Curve Fitting](README_assets/order_4_sine_regression.gif)
+
+
+
 # How To Build
 - Prereqs include gnuplot, gnuplot-cpp library (in extrlibs folder), cmake, gcc or clang compiler.
 - Clone this repository and switch to model_selection branch.

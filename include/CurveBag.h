@@ -24,6 +24,8 @@ class CurveBag
     std::string output_file_path;
     std::string gif_name;
     unsigned int max_X;
+    int gif_y_range_max;
+    int gif_y_range_min;
 
 
     Curve** bag;
@@ -51,12 +53,17 @@ class CurveBag
 
 public:
 
-    CurveBag(unsigned int num_of_frames) :
+    CurveBag(
+        unsigned int num_of_frames, 
+        int gif_y_range_min=-4,
+        int gif_y_range_max=4) :
     num_of_frames(num_of_frames),
     next_curve_idx(0),
     bag_sz(10),
     frame_idx(0),
-    max_X(0)
+    max_X(0),
+    gif_y_range_max(gif_y_range_max),
+    gif_y_range_min(gif_y_range_min)
     {
         bag = new Curve*[bag_sz];
         matrix = new double**[num_of_frames];
@@ -116,7 +123,7 @@ public:
 
         if(frame_idx >= num_of_frames)
         {
-            std::cerr << "Cannot generate more frames!" << std::endl;
+            std::cerr << "Frame Generation Complete!" << std::endl;
         }else 
         {
             //if first, x axis and og curves
@@ -206,7 +213,8 @@ public:
         }
 
         std::ofstream gpscript("gpscript.txt");
-        gpscript << "set yrange [-4:4]" << std::endl<<
+        gpscript << 
+"set yrange ["<<gif_y_range_min<<":"<<gif_y_range_max<<"]" << std::endl<<
 "set terminal gif animate delay 300" << std::endl<<
 "set terminal gif animate" << std::endl<<
 "set output '" <<gif_name<<"'" << std::endl<<
