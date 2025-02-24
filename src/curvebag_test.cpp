@@ -21,8 +21,9 @@ int main()
     }
 
 
-    CurveBag cb(number_of_frames, -1,1);
-    cb.new_curve(data_len, Curve::enSINE, 1, 0.0);
+    CurveBag cb(number_of_frames, -1,40);
+    //cb.new_curve(data_len, Curve::enSINE, 1, 0.0);
+    cb.new_curve(data_len, Curve::enCustom, 1, 0.0, st_line);
     cb.new_curve(data_len, Curve::enEmpty);
     //cb.gen_frame();
     //cb.gen_frame();
@@ -39,7 +40,7 @@ int main()
         cb.gen_frame();
         if(j%2==0)
         {
-            std::cout<<"Iteration "<<j<<": Error = "<<min_err<<std::endl;
+            std::cout<<"Iteration "<<j<<": Error = "<<min_err<<"  Learning Rate = "<<ash.getLearningRate()<<std::endl;
         }
         if(min_err < (prev_err-0.0001)) 
         {

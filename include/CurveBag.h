@@ -8,7 +8,7 @@
 #include "Curve.h"
 #include <iomanip>
 #include <fstream>
-#include <gnuplot.h>
+#include "gnuplot.h"
 
 const int block_size=100;
 
